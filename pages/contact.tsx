@@ -1,27 +1,9 @@
 import { Header } from '@/components/Form';
 import { PageSEO } from '@/components/SEO';
 import siteMetadata from '@/data/siteMetadata';
-import { useRandomColorPair } from '@/lib/hooks/useRandomColorPair';
 import { contact } from 'config/contact';
-import { openPopupWidget } from 'react-calendly';
-import { RoughNotation } from 'react-rough-notation';
 
 function Contact(): React.ReactElement {
-  const [randomColor] = useRandomColorPair();
-
-  function onScheduleMeeting(): void {
-    if (!contact.calendly) {
-      console.error('err: calendly link was not provided.');
-      return;
-    }
-
-    const config = {
-      url: contact.calendly,
-    };
-
-    openPopupWidget(config);
-  }
-
   return (
     <>
       <PageSEO
@@ -32,25 +14,16 @@ function Contact(): React.ReactElement {
         <Header title='Contact' />
         <div className='container py-12'>
           <p>
-            Do you have a project in mind? Want to hire me? or simply wanna
-            chat? Feel free to
-            <span
-              className='ml-2 cursor-pointer !font-normal !text-black !no-underline dark:!text-white'
-              onClick={onScheduleMeeting}
-              role='button'
-              tabIndex={0}
+            Do you Want to hire me? or simply wanna chat? Feel free to message
+            me on
+            <a
+              className='pl-1 text-cyan-500 underline hover:text-sky-600'
+              href={contact.calendly}
+              target='_blank'
+              rel='noreferrer'
             >
-              <RoughNotation
-                show
-                type='underline'
-                strokeWidth={2}
-                animationDelay={250}
-                animationDuration={2000}
-                color={randomColor}
-              >
-                schedule a meeting
-              </RoughNotation>
-            </span>
+              LinkedIn
+            </a>
           </p>
         </div>
       </div>

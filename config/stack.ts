@@ -6,15 +6,21 @@ export enum Stack {
   typescript,
   javascript,
   python,
+  java,
 
   // Frontend
   react,
   reactnative,
+  angular,
 
   // Backend
   graphql,
   node,
   django,
+  springboot,
+
+  //Machine learning
+  dataanalysis,
 
   // Cloud
   aws,
@@ -29,30 +35,32 @@ export enum Stack {
   redis,
   postgres,
   mongo,
+  mysql,
 
   // Tools
   docker,
   kubernetes,
   terraform,
+  mlflow,
+
+  // Skill
+  research,
+  softwarearchitecture,
+  oopdesign,
+  uml,
 }
 
 export const WorkStack = [
-  Stack.go,
-  Stack.typescript,
+  Stack.java,
   Stack.python,
-  Stack.react,
-  Stack.aws,
-  Stack.gcp,
+  Stack.springboot,
   Stack.kubernetes,
   Stack.docker,
-  Stack.terraform,
-  Stack.nats,
   Stack.kafka,
-  Stack.graphql,
-  Stack.postgres,
   Stack.redis,
-  Stack.arangodb,
-  Stack.reactnative,
+  Stack.dataanalysis,
+  Stack.research,
+  Stack.softwarearchitecture,
 ];
 
 type StackInfoMap = {
@@ -61,6 +69,74 @@ type StackInfoMap = {
 };
 
 export const StackInfo: Record<Stack, StackInfoMap> = {
+  [Stack.java]: {
+    value: 'Java',
+    color: Colors.typescript,
+  },
+  [Stack.springboot]: {
+    value: 'Spring Boot',
+    color: Colors.springboot,
+  },
+  [Stack.python]: {
+    value: 'Python',
+    color: Colors.python,
+  },
+  [Stack.kafka]: {
+    value: 'Kafka',
+    color: Colors.kafka,
+  },
+  [Stack.dataanalysis]: {
+    value: 'Data Analysis',
+    color: Colors.arangodb,
+  },
+  [Stack.research]: {
+    value: 'Research',
+    color: Colors.research,
+  },
+  [Stack.redis]: {
+    value: 'Redis',
+    color: Colors.redis,
+  },
+  [Stack.softwarearchitecture]: {
+    value: 'Software Architecture',
+    color: Colors.softwarearchitecture,
+  },
+  [Stack.docker]: {
+    value: 'Docker',
+    color: Colors.docker,
+  },
+  [Stack.kubernetes]: {
+    value: 'Kubernetes',
+    color: Colors.kubernetes,
+  },
+  [Stack.oopdesign]: {
+    value: 'Object-Oriented Design',
+    color: Colors.java,
+  },
+  [Stack.uml]: {
+    value: 'Unified Modeling Language (UML)',
+    color: Colors.redis,
+  },
+  [Stack.arangodb]: {
+    value: 'ArangoDB',
+    color: Colors.arangodb,
+  },
+  [Stack.postgres]: {
+    value: 'Postgres',
+    color: Colors.postgres,
+  },
+  [Stack.node]: {
+    value: 'Node',
+    color: Colors.node,
+  },
+  [Stack.django]: {
+    value: 'Django',
+    color: Colors.django,
+  },
+  [Stack.nats]: {
+    value: 'NATS',
+    color: Colors.nats,
+  },
   [Stack.typescript]: {
     value: 'TypeScript',
     color: Colors.typescript,
@@ -93,52 +169,24 @@ export const StackInfo: Record<Stack, StackInfoMap> = {
     value: 'Google Cloud',
     color: Colors.gcp,
   },
-  [Stack.python]: {
-    value: 'Python',
-    color: Colors.python,
-  },
-  [Stack.node]: {
-    value: 'Node',
-    color: Colors.node,
-  },
-  [Stack.django]: {
-    value: 'Django',
-    color: Colors.django,
-  },
-  [Stack.nats]: {
-    value: 'NATS',
-    color: Colors.nats,
-  },
-  [Stack.kafka]: {
-    value: 'Kafka',
-    color: Colors.kafka,
-  },
-  [Stack.arangodb]: {
-    value: 'ArangoDB',
-    color: Colors.arangodb,
-  },
-  [Stack.postgres]: {
-    value: 'Postgres',
-    color: Colors.postgres,
-  },
-  [Stack.redis]: {
-    value: 'Redis',
-    color: Colors.redis,
-  },
-  [Stack.mongo]: {
-    value: 'MongoDB',
-    color: Colors.mongo,
-  },
-  [Stack.docker]: {
-    value: 'Docker',
-    color: Colors.docker,
-  },
-  [Stack.kubernetes]: {
-    value: 'Kubernetes',
-    color: Colors.kubernetes,
-  },
   [Stack.terraform]: {
     value: 'Terraform',
     color: Colors.terraform,
+  },
+  [Stack.angular]: {
+    value: 'Angular',
+    color: Colors.angular,
+  },
+  [Stack.mongo]: {
+    value: 'MongoDB ',
+    color: Colors.mongo,
+  },
+  [Stack.mlflow]: {
+    value: 'MLflow ',
+    color: Colors.mlflow,
+  },
+  [Stack.mysql]: {
+    value: 'MySql ',
+    color: Colors.mysql,
   },
 };

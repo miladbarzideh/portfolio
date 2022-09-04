@@ -4,21 +4,29 @@ export const Colors = {
   python: '#4B8BBE',
   typescript: '#234A84',
   javascript: '#F7DF1E',
+  java: '#00ADD8',
 
   // Frontend
   web: '#2D2D2D',
   react: '#61DAF6',
   nextjs: '#000000',
+  angular: '#61DAF6',
 
   // Backend
   graphql: '#E535AB',
   node: '#68A063',
   django: '#092E20',
+  springboot: '#68A063',
 
   // Tools, Libs
   webpack: '#8DD6F9',
   babel: '#F5DB53',
   redux: '#764ABC',
+  mlflow: '#8DD6F9',
+
+  // Other
+  research: '#764ABC',
+  softwarearchitecture: '#8DD6F9',
 
   // Mobile
   reactnative: '#2D2D2D',
@@ -30,6 +38,7 @@ export const Colors = {
   postgres: '#336791',
   mongo: '#4DB33D',
   redis: '#D82C20',
+  mysql: '#68A063',
 
   // Cloud
   aws: '#FF9900',
@@ -63,4 +72,5 @@ export const Colors = {
   resume: '#EEEBFF',
   opensource: '#26BE00',
   tutorial: '#4dd0e1',
+  credential: '#2D2D2D',
 };

@@ -1,17 +1,14 @@
 import { contact, Contact } from './contact';
-import { Course, courses } from './courses';
-import { Project, projects } from './projects';
+import { Accomplishment, accomplishments } from './accomplishments';
 
 interface Config {
   contact: Contact;
-  projects: Project[];
-  courses: Course[];
+  accomplishments: Accomplishment[];
 }
 
 const config: Config = {
   contact,
-  projects,
-  courses,
+  accomplishments: accomplishments,
 };
 
 export const POSTS_PER_PAGE = 10;
