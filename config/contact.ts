@@ -17,10 +17,10 @@ export interface Contact {
 export const contact: Contact = {
   twitter: '@mimbe15',
   site: 'https://mimbe.vercel.app',
-  calendly: 'https://www.linkedin.com/in/milad-barzideh-b2870868',
+  calendly: 'https://www.linkedin.com/in/milad-barzideh',
   links: {
     github: 'https://github.com/miladbarzideh',
-    linkedin: 'https://www.linkedin.com/in/milad-barzideh-b2870868',
+    linkedin: 'https://www.linkedin.com/in/milad-barzideh',
     twitter: 'https://twitter.com/mimbe15',
     youtube: '',
     email: 'mailto:barzidehmilad@gmail.com',

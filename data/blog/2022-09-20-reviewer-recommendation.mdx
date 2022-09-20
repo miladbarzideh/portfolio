@@ -1,0 +1,116 @@
+---
+title: 'Reviewer Recommendation in GitHub'
+date: '2022-09-04'
+tags: ['GITHUB', 'SOCIAL NETWORK ANALYSIS']
+draft: false
+summary: 'Learn about social network analysis'
+images: ['/static/blogs/2022-09-20-reviewer-recommendation/banner.png']
+authors: ['default']
+---
+
+[//]: # 'Imagine you have an active and popular open source project on Github. Many contributors have contributed to it, and there are many open pull requests.'
+[//]: # "How would you handle this situation? If you don't respond to a pull request quickly, you risk losing contributors, so in order to speed up your software development and improve the software quality, you should find potential reviewers for each pull request."
+
+In this article, we will analyze social relation between contributors and reviewers in [Github](https://github.com/), and create a social network to recommend reviewers for pull requests.
+
+_All the code from this article is available [here](https://github.com/miladbarzideh/reviewer-recommendation)_.
+
+## Analyze code contributions
+
+[Tensorflow](https://github.com/tensorflow/tensorflow) is an open-source machine learning framework. Currently, it has more than 3000 contributors and 225 open pull requests.
+To analyze its data, we use [PyGithub](https://pygithub.readthedocs.io/) to retrieve the history of closed pull requests for the last 10 pages.
+
+```python
+from github import Github
+
+# Specify your own Github access token here
+client = Github('ACCESS_TOKEN', per_page=100)
+user = client.get_user('tensorflow')
+repo = user.get_repo('tensorflow')
+# Get pull requests by query [PaginatedList]
+pull_requests = repo.get_pulls(state='closed', sort="created", direction="desc")
+```
+
+We create the following dataset based on the review comments in each pull request, which includes 177 pull requests and 1217 comments.
+
+| pull_request_id | contributor | pull_request_created_at | reviewer | review_comment_created_at |
+| --------------- | ----------- | ----------------------- | -------- | ------------------------- |
+| 55236           | gzmkl       | 2022-03-15 04:03:12     | penpornk | 2022-03-23 20:49:21       |
+| 55236           | gzmkl       | 2022-03-15 04:03:12     | gzmkl    | 2022-03-24 22:43:48       |
+
+According to the data, it takes `9 days` for a pull request to get its first review.
+Imagine we want to speed up this process and assign potential reviewers for new pull requests with [mention](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) tool.
+A pull request may come from a familiar contributor or a new contributor. Therefore, we consider these two simple rules for finding reviewers:
+
+1. We find those who have previously interacted with the familiar contributors
+2. We find most active reviewers in different communities for new contributors
+
+## Create social network
+
+We use [NetworkX](https://networkx.org/) to create the structure of the social network.
+If node V<sub>j</sub> has reviewed at least one of V<sub>i</sub>’s
+pull-requests, there is an edge E<sub>ij</sub> from V<sub>i</sub> to V<sub>j</sub>.
+
+![comment network](/static/blogs/2022-09-20-reviewer-recommendation/simple-graph.png)
+
+Each edge has a weight that shows the importance of the edge and is calculated based on the following hypotheses:
+
+- The comments in multiple pull-requests are more important than those
+  in one pull-request
+- The new comments are more important than old ones
+
+As a result, reviewers who have interacted with a contributor more recently are considered more important and have a higher weight.
+
+_Details of the weight formula can be found here[^1]_.
+
+$$
+W_{ij} = \sum_{i=1}^{k}{w(r,j,i)} = \sum_{r=1}^{k}\sum_{n=1}^{m}{\lambda^{n-1}} \times t_{(ij,r,n)}
+$$
+
+```python
+import networkx as nx
+
+weight_matrix = calculate_weight_matrix(df_train)
+
+G = nx.DiGraph()
+
+for contributor in weight_matrix.keys():
+    for reviewer in weight_matrix[contributor].keys():
+        G.add_edge(contributor, reviewer, weight=weight_matrix[contributor][reviewer])
+```
+
+## Community detection
+
+In [complex networks](https://en.wikipedia.org/wiki/Complex_network), a network is said to have a `community structure` if its nodes can be easily grouped into sets of densely connected components.
+Nodes in each group usually have common interests. In our example, nodes (developers) may collaborate on a part of the project with a specific logic or technology, therefore, we can recommend active reviewers from these communities.
+We use [girvan-newman](https://networkx.guide/algorithms/community-detection/girvan-newman/) algorithm to identify communities. In the image, different colors indicate different communities.
+
+```python
+from networkx.algorithms.community.centrality import girvan_newman
+
+# https://networkx.guide/algorithms/community-detection/girvan-newman/
+communities = girvan_newman(G)
+```
+
+![communities](/static/blogs/2022-09-20-reviewer-recommendation/communities.png)
+
+## Reviewer recommendation
+
+We split our data to train and test sets to validate our model.
+
+```python
+msk = np.random.rand(len(df)) < 0.8
+df_train = df[msk]
+df_test = df[~msk]
+```
+
+It makes sense to recommend `k` reviewers for a pull request (Top-K recommendation). To evaluate our model, we use [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) as classical evaluation metrics. The table below shows the results for various values of k.
+
+| k   | Precision | Recall |
+| --- | --------- | ------ |
+| 4   | 0.57      | 0.90   |
+| 3   | 0.57      | 0.89   |
+| 2   | 0.59      | 0.81   |
+| 1   | 0.75      | 0.69   |
+
+[^1]: Yue Yu, Huaimin Wang, Gang Yin, Tao Wang. Reviewer Recommendation for Pull-Requests in GitHub: What Can We Learn from Code Review and Bug Assignment?. Information and Software Technology (IST), Elsevier, 2016. (SCI, CCF-B)
