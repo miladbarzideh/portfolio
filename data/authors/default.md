@@ -12,5 +12,3 @@ github: https://github.com/miladbarzideh
 ---
 
 A software engineer who values learning and growing with people, teams, and technologies.
-
-Presently, I am working as a Software Engineer at [Snapp!](https://snapp.ir/). Snapp is the first and leading ride-hailing application in Iran. Our mission is to be the most preferred transportation solution in the country.
