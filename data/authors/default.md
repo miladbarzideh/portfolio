@@ -6,7 +6,7 @@ occupation: Software Engineer
 company: Snapp!
 resume: https://registry.jsonresume.org/miladbarzideh
 email: barzidehmilad@gmail.com
-twitter: https://twitter.com/mimbe15
+twitter:
 linkedin: https://www.linkedin.com/in/milad-barzideh
 github: https://github.com/miladbarzideh
 ---

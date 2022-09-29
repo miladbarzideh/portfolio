@@ -13,7 +13,7 @@ const siteMetadata = {
   socialBanner: '/static/banner.png',
   email: 'barzidehmilad@gmail.com',
   github: 'https://github.com/miladbarzideh',
-  twitter: 'https://twitter.com/mimbe15',
+  twitter: '',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/milad-barzideh/',
