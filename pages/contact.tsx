@@ -14,7 +14,7 @@ function Contact(): React.ReactElement {
         <Header title='Contact' />
         <div className='container py-12'>
           <p>
-            Do you Want to hire me? or simply wanna chat? Feel free to message
+            Do you want to hire me? or simply wanna chat? Feel free to message
             me on
             <a
               className='pl-1 text-cyan-500 underline hover:text-sky-600'
