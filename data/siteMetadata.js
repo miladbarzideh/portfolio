@@ -6,7 +6,7 @@ const siteMetadata = {
     'A software engineer who values learning and growing with people, teams, and technologies.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://mimbe.vercel.app/',
+  siteUrl: 'https://miladbarzideh.com',
   siteRepo: 'https://github.com/miladbarzideh/portfolio',
   siteLogo: '/static/images/logo.png',
   image: '/static/avatar.jpg',

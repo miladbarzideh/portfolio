@@ -16,7 +16,7 @@ export interface Contact {
 
 export const contact: Contact = {
   twitter: '',
-  site: 'https://mimbe.vercel.app',
+  site: 'https://miladbarzideh.com',
   calendly: 'https://www.linkedin.com/in/milad-barzideh',
   links: {
     github: 'https://github.com/miladbarzideh',
