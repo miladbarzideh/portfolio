@@ -23,7 +23,7 @@ But for several reasons, we need more effective ways:
 - Other operation: e.g. find the word (`چرخ` near `مراد`) not feasible.
 - To allow ranked retrieval: We sometimes need more relevant documents, and we like to rank them.
 
-The best way to meet our requirement is to `index` the documents in advance.
+The best way to meet our requirements is to `index` the documents in advance.
 
 ## Inverted index
 
@@ -32,19 +32,19 @@ The basic idea of this data structure is shown below:
 
 ![Inverted index](/static/blogs/2023-01-26-how-elasticsearch-indexes-documents/inverted-index.png)
 
-In order to take advantages of inverted index in retrieval time, we need to build it in advance. The steps for building the inverted index are:
+In order to take advantage of the inverted index in retrieval time, we need to build it in advance. The steps for building the inverted index are:
 
 - Collect the documents to be indexed.
-- Tokenization: turning each document to a list of tokens
+- Tokenization: turning each document into a list of tokens
 - Normalization: producing a list of normalized tokens
 - Index the documents
 
 There are different types of digital documents (PDF, XML, ...) with different file encodings (UTF-8, ASCII).
 The first step of processing is to convert these documents into a linear sequence of characters. Then, each document needs to be tokenized. We also normalize tokens to deal with the complexity of languages.
-Tokenization and normalization is beyond the scope of this article.
+Tokenization and normalization are beyond the scope of this article.
 You can find more information on this topic here[^1]. However, here we only mention a few techniques used in text data preprocessing.
 
-- Case folding: Reduce all letters to lower case
+- Case folding: Reduce all letters to lowercase
 - Dropping stop words (common words): e.g. a, an, and
 - Lemmatization: Reduce variant form to base form
 - Stemming: Reduce a word to its stem
@@ -56,7 +56,7 @@ Let's go back to our first question: `زُلف` and `شب`. To find the answer t
 
 - Locate `زُلف` in the dictionary and retrieve its postings list
 - Locate `شب` in the dictionary and retrieve its postings list
-- Intersect the two postings list and return it to user
+- Intersect the two postings list and return it to the user
 
 `Elasticsearch` uses the inverted index to store documents[^2]:
 
@@ -69,7 +69,7 @@ Accordingly, it is essential for a search engine to rank the matching documents 
 To do this, a score is calculated for each matching document with respect to the query at hand.
 This ranking allows us to show only the top k results to users. There are two main factors that determine a document's score:
 
-- Term frequency ($tf_{t,d}$): Number of times that a term occurs in a document, and the more times a term occurs in a document, the more relevant that document is.
+- Term frequency ($tf_{t,d}$): The number of times that a term occurs in a document, and the more times a term occurs in a document, the more relevant that document is.
 - Inverse document frequency ($idf_t$): This is a measure of the informativeness of a term. Frequent terms are less informative than rare terms
 
 Based on these factors, we can score the documents with the following formula (the log dampens the effect of IDF):
